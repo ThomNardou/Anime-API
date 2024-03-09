@@ -1,6 +1,6 @@
-import { success } from "./helper.mjs";
-import { Anime } from "../db/sequelize.mjs";
-import { Author } from "../db/sequelize.mjs";
+import { success } from "../helper.mjs";
+import { Anime } from "../../db/sequelize.mjs";
+import { Author } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
 import express from "express";
 

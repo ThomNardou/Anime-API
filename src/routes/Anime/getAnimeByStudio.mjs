@@ -1,5 +1,5 @@
-import { success } from "./helper.mjs";
-import { Anime } from "../db/sequelize.mjs";
+import { success } from "../helper.mjs";
+import { Anime } from "../../db/sequelize.mjs";
 import express from "express";
 
 const  animeStudioRooter = express();

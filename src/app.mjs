@@ -1,10 +1,13 @@
 import express from "express";
 import { sequelize } from "./db/sequelize.mjs";
 import { initDb } from "./db/sequelize.mjs";
-import { animeRouter } from "./routes/getAllAnime.mjs";
-import { animeIdRooter } from "./routes/getAnimeById.mjs";
-import { animeStudioRooter } from "./routes/getAnimeByStudio.mjs";
-import { animeAuthorRooter } from "./routes/getAnime.Author.mjs";
+import { animeRouter } from "./routes/Anime/getAllAnime.mjs";
+import { animeIdRooter } from "./routes/Anime/getAnimeById.mjs";
+import { animeStudioRooter } from "./routes/Anime/getAnimeByStudio.mjs";
+import { animeAuthorRooter } from "./routes/Anime/getAnime.Author.mjs";
+import { createAnimeRooter } from "./routes/Anime/createAnime.mjs";
+import { deleteAnimeRooter } from "./routes/Anime/deleteAnime.mjs";
+import { updateAnimeRooter } from "./routes/Anime/updateAnime.mjs";
 
 const port = 3000;
 const app = express();
@@ -21,8 +24,13 @@ app.get("/api", (req, res) => {
 
 app.use("/api/anime", animeRouter);
 app.use("/api/anime", animeIdRooter);
+app.use("/api/anime", createAnimeRooter);
+app.use("/api/anime", deleteAnimeRooter);
+app.use("/api/anime", updateAnimeRooter);
+
 app.use("/api/studio", animeStudioRooter);
 app.use("/api/author", animeAuthorRooter);
+
 
 // initDb();
 
