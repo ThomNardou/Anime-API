@@ -2,6 +2,8 @@ import { Sequelize, DataTypes } from "sequelize";
 import { AuthorModel } from "../models/t_author.mjs";
 import { StudioModel } from "../models/t_studio.mjs";
 import { AnimeModel } from "../models/t_anime.mjs";
+import { UserModel } from "../models/t_user.mjs";
+import bcrypt from "bcrypt";
 
 const sequelize = new Sequelize('db_anime', 'root', 'root', {
     host: 'localhost',
@@ -13,6 +15,7 @@ const sequelize = new Sequelize('db_anime', 'root', 'root', {
 const Anime = AnimeModel(sequelize, DataTypes);
 const Author = AuthorModel(sequelize, DataTypes);
 const Studio = StudioModel(sequelize, DataTypes);
+const User = UserModel(sequelize, DataTypes);
 
 Anime.belongsTo(Author, { foreignKey: "fkAuthor" });
 Author.hasMany(Anime, { foreignKey: "fkAuthor" });
@@ -21,6 +24,7 @@ let initDb = () => {
     return sequelize
         .sync({ force: true })
         .then(() => {
+            importUser();
             importAuthor();
             importAnime();
             importStudio();
@@ -47,6 +51,15 @@ let importAuthor = () => {
     })
 }
 
+let importUser = () => {
+    bcrypt.hash("admin123", 10).then((hashPassword) => {
+        User.create({
+            username: "admin",
+            password: hashPassword
+        })
+    })
+}
+
 let importStudio = () => {
     Studio.create({
         name: "Pierrot",
@@ -55,4 +68,4 @@ let importStudio = () => {
     })
 }
 
-export { sequelize, initDb, Anime, Author, Studio };
+export { sequelize, initDb, Anime, Author, Studio, User };

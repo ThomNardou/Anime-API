@@ -1,10 +1,11 @@
 import { success } from "../helper.mjs";
 import { Anime } from "../../db/sequelize.mjs";
 import express from "express";
+import { auth } from "../../auth/auth.mjs";
 
 const deleteAnimeRooter = express();
 
-deleteAnimeRooter.delete("/:id", (req, res) => {
+deleteAnimeRooter.delete("/:id", auth, (req, res) => {
     Anime.findByPk(req.params.id)
         .then((deletedAnime) => {
             if (deletedAnime == null) {

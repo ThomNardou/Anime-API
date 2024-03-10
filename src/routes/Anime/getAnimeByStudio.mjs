@@ -1,10 +1,11 @@
 import { success } from "../helper.mjs";
 import { Anime } from "../../db/sequelize.mjs";
 import express from "express";
+import { auth } from "../../auth/auth.mjs";
 
 const  animeStudioRooter = express();
 
-animeStudioRooter.get("/:fk/anime", (req, res) => { 
+animeStudioRooter.get("/:fk/anime", auth, (req, res) => { 
     Anime.findAll({ where: { fkStudio: req.params.fk } })
     .then((anime) => {
         if (anime == null) {

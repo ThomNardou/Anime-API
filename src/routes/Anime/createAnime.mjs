@@ -1,10 +1,11 @@
 import { success } from "../helper.mjs";
 import { Anime } from "../../db/sequelize.mjs";
 import express from "express";
+import { auth } from "../../auth/auth.mjs";
 
 const createAnimeRooter = express();
 
-createAnimeRooter.post("/", (req, res) => {
+createAnimeRooter.post("/", auth,(req, res) => {
     Anime.create(req.body)
         .then((anime) => {
             const message = "The anime has been created";

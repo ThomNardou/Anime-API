@@ -8,6 +8,7 @@ import { animeAuthorRooter } from "./routes/Anime/getAnime.Author.mjs";
 import { createAnimeRooter } from "./routes/Anime/createAnime.mjs";
 import { deleteAnimeRooter } from "./routes/Anime/deleteAnime.mjs";
 import { updateAnimeRooter } from "./routes/Anime/updateAnime.mjs";
+import { loginRouter } from "./routes/login.mjs";
 
 const port = 3000;
 const app = express();
@@ -30,6 +31,8 @@ app.use("/api/anime", updateAnimeRooter);
 
 app.use("/api/studio", animeStudioRooter);
 app.use("/api/author", animeAuthorRooter);
+
+app.use("/api/login", loginRouter);
 
 
 // initDb();

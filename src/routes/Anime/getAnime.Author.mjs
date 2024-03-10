@@ -3,10 +3,11 @@ import { Anime } from "../../db/sequelize.mjs";
 import { Author } from "../../db/sequelize.mjs";
 import { Op } from "sequelize";
 import express from "express";
+import { auth } from "../../auth/auth.mjs";
 
 const  animeAuthorRooter = express();
 
-animeAuthorRooter.get("/:id/anime", (req, res) => {
+animeAuthorRooter.get("/:id/anime", auth, (req, res) => {
     Anime.findAll({
         include: {
             model: Author,
@@ -24,6 +25,10 @@ animeAuthorRooter.get("/:id/anime", (req, res) => {
         const message = `The anime with the author ${req.params.id} has been found`;
         res.json(success(message, anime));
     })
+    .catch((err) => {
+        const message = "An error has occured, please try again later";
+        res.status(500).json({ message, data: err });
+    });
 })
 
 export { animeAuthorRooter };

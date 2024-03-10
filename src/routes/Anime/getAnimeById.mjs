@@ -1,10 +1,11 @@
 import { success } from "../helper.mjs";
 import { Anime } from "../../db/sequelize.mjs";
 import express from "express";
+import { auth } from "../../auth/auth.mjs";
 
 const  animeIdRooter = express();
 
-animeIdRooter.get("/:id", (req, res) => { 
+animeIdRooter.get("/:id", auth, (req, res) => { 
     Anime.findByPk(req.params.id)
     .then((anime) => {
         if (anime == null) {
